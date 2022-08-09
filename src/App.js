@@ -1,7 +1,7 @@
 function App() {
   return (
     <>
-      <h1>Start donating</h1>
+      <p className="text-red-500">Start donating</p>
     </>
   );
 }
