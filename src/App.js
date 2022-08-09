@@ -1,7 +1,7 @@
 function App() {
   return (
     <>
-      <h1>hello worlds</h1>
+      <h1>Start donating</h1>
     </>
   );
 }
