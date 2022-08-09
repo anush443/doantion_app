@@ -1,7 +1,7 @@
-ineuron_hackathon_5.0
-Creator Funding Portal
+#ineuron_hackathon_5.0
+#Creator Funding Portal
 
-Requirements
+#Requirements
 
 You will need Metamask installed in your browser from the official site https://metamask.io. You must have a recent version of Node.js installed. We recommend using v16 LTS for compatibility. Application Requirements
 
