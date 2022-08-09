@@ -1,23 +1,27 @@
 const networkConfig = {
-    4: {
-        name: "rinkeby",
-        vrfCoordinatorV2: "0x6168499c0cFfCaCD319c818142124B7A15E857ab",
-        gasLane: "0xd89b2bf150e3b9e13446986e571fb9cab24b13cea0a43ea20a6049a85cc807cc",
-        subscriptionId: "10103", //9288
-        callbackGasLimit: "500000",
-        interval: "30",
+    default: {
+        name: "hardhat",
+        keepersUpdateInterval: "30",
     },
     31337: {
-        name: "hardhat",
-        gasLane: "0xd89b2bf150e3b9e13446986e571fb9cab24b13cea0a43ea20a6049a85cc807cc",
-        callbackGasLimit: "500000",
-        interval: "30",
+        name: "localhost",
+        minDonationAmount: "10000000000000000", // 0.01 ETH
+    },
+    4: {
+        name: "rinkeby",
+        minDonationAmount: "10000000000000000",
+    },
+    1: {
+        name: "mainnet",
+        keepersUpdateInterval: "30",
     },
 }
 
 const developmentChains = ["hardhat", "localhost"]
+const VERIFICATION_BLOCK_CONFIRMATIONS = 6
 
 module.exports = {
     networkConfig,
     developmentChains,
+    VERIFICATION_BLOCK_CONFIRMATIONS,
 }
