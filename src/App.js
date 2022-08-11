@@ -1,9 +1,9 @@
 function App() {
-  return (
-    <>
-      <p className="text-red-500">Start donating</p>
-    </>
-  );
+    return (
+        <>
+            <p className="text-red-800">Start donating</p>
+        </>
+    )
 }
 
-export default App;
+export default App
