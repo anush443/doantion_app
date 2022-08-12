@@ -1,7 +1,10 @@
-function App() {
+import React from "react"
+import Navbar from "./components/Navbar"
+
+const App = () => {
     return (
         <>
-            <p className="text-red-800">Start donating</p>
+            <Navbar />
         </>
     )
 }
