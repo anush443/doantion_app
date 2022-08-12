@@ -1,10 +1,19 @@
 import React from "react"
-import Navbar from "./components/Navbar"
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
+import Home from "./pages/Home"
+import Dashboard from "./pages/Dashboard"
+import Discover from "./pages/Discover"
 
 const App = () => {
     return (
         <>
-            <Navbar />
+            <Router>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/discover" element={<Discover />} />
+                </Routes>
+            </Router>
         </>
     )
 }
