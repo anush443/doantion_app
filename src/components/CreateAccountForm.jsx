@@ -1,28 +1,73 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { Modal, ModalHeader, ModalBody, ModalFooter, Col, Row, FormGroup, Label } from "reactstrap"
 import { useForm } from "react-hook-form"
+import ChainContext from "../store/chain-Context"
+
 import CreateOrUpdateCreator from "./CreateOrUpdateCreator"
-import { abi, contractAddresses } from "../constants"
-import { useMoralis, useWeb3Contract } from "react-moralis"
+import { useWeb3Contract } from "react-moralis"
+import { useNotification } from "web3uikit"
 
 const CreateAccountForm = ({ modal, toggle, args, creatorBool }) => {
     const [creator, setCreator] = useState(false)
+    const [userName, setUsername] = useState(" ")
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm()
 
-    const { chainId: chainIdHex, isWeb3Enabled, enableWeb3 } = useMoralis()
+    const chainContextCtx = useContext(ChainContext)
 
-    const chainId = parseInt(chainIdHex)
-    const fundCreatorsAddress = chainId in contractAddresses ? contractAddresses[chainId][0] : null
+    const {
+        runContractFunction: createUser,
+        isLoading,
+        isFetching,
+    } = useWeb3Contract({
+        abi: chainContextCtx.abi,
+        contractAddress: chainContextCtx.contractAddress,
+        functionName: "createUser",
+        params: {
+            _name: userName,
+        },
+    })
 
-    const onSubmit = (data) => {
-        alert(JSON.stringify(data))
+    const dispatch = useNotification()
+
+    const handleSuccessOrErrorNotification = async (type, message) => {
+        dispatch({
+            type: type,
+            title: "Transaction Notification",
+            message: message,
+            position: "topR",
+            icon: "bell",
+        })
     }
 
-    const isCreator = () => {
+    const handleSuccess = async (tx) => {
+        await tx.wait(1)
+
+        await handleSuccessOrErrorNotification("info", "Successfully Created new user")
+    }
+
+    const handleError = async (error) => {
+        console.log(error)
+        handleSuccessOrErrorNotification("error", "Something went wrong")
+    }
+
+    const onSubmit = async (userData) => {
+        // console.log(JSON.stringify(userData["name"]).toLowerCase())
+        setUsername(JSON.stringify(userData["name"]).toLowerCase())
+        if (chainContextCtx.isWeb3Enabled) {
+            await createUser({
+                onSuccess: handleSuccess,
+                onError: (error) => handleError(error),
+            })
+        } else {
+            handleSuccessOrErrorNotification("warning", "Please connect with metamask")
+        }
+    }
+
+    const setIsCreator = () => {
         setCreator((prevState) => !prevState)
     }
 
@@ -50,6 +95,7 @@ const CreateAccountForm = ({ modal, toggle, args, creatorBool }) => {
                                                     pattern: /^[A-Za-z]+$/i,
                                                 })}
                                             />
+
                                             {errors?.name?.type === "required" && (
                                                 <p>This field is required</p>
                                             )}
@@ -65,7 +111,8 @@ const CreateAccountForm = ({ modal, toggle, args, creatorBool }) => {
                                 <input
                                     type="checkbox"
                                     className="mt-2 checked:bg-blue-500"
-                                    onClick={isCreator}
+                                    onClick={setIsCreator}
+                                    disabled={isLoading || isFetching}
                                 />{" "}
                                 Creator
                             </ModalBody>
@@ -73,11 +120,13 @@ const CreateAccountForm = ({ modal, toggle, args, creatorBool }) => {
                                 <button
                                     type="submit"
                                     className="px-3 py-2 rounded-lg font-semibold text-violet-700 text-sm bg-violet-50 hover:bg-violet-300 duration-800"
+                                    disabled={isLoading || isFetching}
                                 >
                                     Submit
                                 </button>
                                 <div
                                     className="px-3 py-2 rounded-lg font-semibold text-violet-700 text-sm bg-violet-50 hover:bg-violet-300 duration-800"
+                                    disabled={isLoading || isFetching}
                                     color="secondary"
                                     onClick={toggle}
                                 >
@@ -86,7 +135,9 @@ const CreateAccountForm = ({ modal, toggle, args, creatorBool }) => {
                             </ModalFooter>
                         </form>
                     )}
-                    {creator && <CreateOrUpdateCreator toggle={toggle} isCreator={isCreator} />}
+                    {creator && (
+                        <CreateOrUpdateCreator toggle={toggle} setIsCreator={setIsCreator} />
+                    )}
                 </Modal>
             </div>
         </>
