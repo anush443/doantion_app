@@ -10,11 +10,11 @@ const Hero = () => {
     return (
         <>
             <div className="flex flex-col items-center justify-center h-screen md:flex-row bg-gradient-to-r from-indigo-500">
-                <div className="flex  flex-col p-2 max-w-xl ">
-                    <h3 className="text-4xl font-serif font-bold text-left  tracking-widest">
+                <div className="flex  flex-col  p-2 space-y-5 text-center md:text-left  ">
+                    <h3 className="text-4xl font-serif font-bold   tracking-widest">
                         Fund Your Favorite Creators
                     </h3>
-                    <h3 className="text-4xl mt-2 font-serif font-bold text-left  tracking-widest">
+                    <h3 className="text-4xl  font-serif font-bold md:text-left  tracking-widest">
                         Decentarziled funding
                     </h3>
                     <div className="flex flex-col md:flex-row mt-10  space-y-3 md:space-x-6 md:space-y-0 ">
@@ -29,7 +29,7 @@ const Hero = () => {
                         </button>
                     </div>
                 </div>
-                <div className="flex h-2/3">
+                <div className="flex mt-5 h-1/3 md:h-2/3 justify-center  md:mt-0">
                     <img src={ethlogo} alt="heroimg" className="object-fit" />
                 </div>
             </div>

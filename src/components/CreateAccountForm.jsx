@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Modal, ModalHeader, ModalBody, ModalFooter, Col, Row, FormGroup, Label } from "reactstrap"
 import { useForm } from "react-hook-form"
 import ChainContext from "../store/chain-Context"
@@ -55,17 +55,21 @@ const CreateAccountForm = ({ modal, toggle, args, creatorBool }) => {
     }
 
     const onSubmit = async (userData) => {
-        // console.log(JSON.stringify(userData["name"]).toLowerCase())
         setUsername(JSON.stringify(userData["name"]).toLowerCase())
-        if (chainContextCtx.isWeb3Enabled) {
-            await createUser({
-                onSuccess: handleSuccess,
-                onError: (error) => handleError(error),
-            })
-        } else {
-            handleSuccessOrErrorNotification("warning", "Please connect with metamask")
-        }
     }
+
+    useEffect(() => {
+        const createUserCall = async () => {
+            if (chainContextCtx.isWeb3Enabled && userName.length > 1) {
+                await createUser({
+                    onSuccess: handleSuccess,
+                    onError: (error) => handleError(error),
+                })
+                toggle()
+            }
+        }
+        createUserCall()
+    }, [userName])
 
     const setIsCreator = () => {
         setCreator((prevState) => !prevState)
@@ -79,6 +83,7 @@ const CreateAccountForm = ({ modal, toggle, args, creatorBool }) => {
                 <Modal isOpen={modal} toggle={toggle} {...args}>
                     <ModalHeader toggle={toggle}>
                         {creator ? "Join as Creator" : "Join as a user"}
+                        {userName}
                     </ModalHeader>
                     {!creator && (
                         <form onSubmit={handleSubmit(onSubmit)}>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { ModalBody, ModalFooter, Col, Row, FormGroup, Label } from "reactstrap"
 import { useForm } from "react-hook-form"
 import ChainContext from "../store/chain-Context"
@@ -15,6 +15,7 @@ const CreateOrUpdateCreator = ({ toggle, setIsCreator }) => {
         emailId: " ",
         instagram: " ",
     })
+    const [trigger, setTrigger] = useState(" ")
     const {
         register,
         handleSubmit,
@@ -22,7 +23,7 @@ const CreateOrUpdateCreator = ({ toggle, setIsCreator }) => {
     } = useForm()
 
     const chainContextCtx = useContext(ChainContext)
-    const userTypeContextCtx = useContext(UserTypeContext)
+    //const userTypeContextCtx = useContext(UserTypeContext)
 
     const {
         runContractFunction: createOrUpdateCreators,
@@ -72,18 +73,22 @@ const CreateOrUpdateCreator = ({ toggle, setIsCreator }) => {
             country: userData["country"],
             img: userData["image"],
             about: userData["about"],
-            email: userData["email"],
+            emailId: userData["email"],
             instagram: userData["instagram"],
         })
-        if (chainContextCtx.isWeb3Enabled) {
-            await createOrUpdateCreators({
-                onSuccess: handleSuccess,
-                onError: (error) => handleError(error),
-            })
-        } else {
-            handleSuccessOrErrorNotification("warning", "Please connect with metamask")
-        }
     }
+
+    useEffect(() => {
+        const createOrUpdateCreatorsCall = async () => {
+            if (chainContextCtx.isWeb3Enabled && creatorInfo["name"].length > 1) {
+                await createOrUpdateCreators({
+                    onSuccess: handleSuccess,
+                    onError: (error) => handleError(error),
+                })
+            }
+        }
+        createOrUpdateCreatorsCall()
+    }, [creatorInfo])
 
     return (
         <>
