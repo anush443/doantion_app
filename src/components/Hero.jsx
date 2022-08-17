@@ -10,6 +10,9 @@ const Hero = () => {
     return (
         <>
             <div className="flex flex-col items-center justify-center h-screen md:flex-row bg-gradient-to-r from-indigo-500">
+                <div className="flex mt-5 h-1/3 md:h-2/3 justify-center  md:mt-0">
+                    <img src={ethlogo} alt="heroimg" className="object-fit" />
+                </div>
                 <div className="flex  flex-col  p-2 space-y-5 text-center md:text-left  ">
                     <h3 className="text-4xl font-serif font-bold   tracking-widest">
                         Fund Your Favorite Creators
@@ -28,9 +31,6 @@ const Hero = () => {
                             Create Account
                         </button>
                     </div>
-                </div>
-                <div className="flex mt-5 h-1/3 md:h-2/3 justify-center  md:mt-0">
-                    <img src={ethlogo} alt="heroimg" className="object-fit" />
                 </div>
             </div>
             <CreateAccountForm

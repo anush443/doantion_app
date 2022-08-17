@@ -8,7 +8,7 @@ const FundCreatorModal = ({ modal, toggle, args }) => {
 
     const minus = () => {
         if (ethAmountCounter > 0.01) {
-            setEthAmountCounter((prev) => prev - 0.01)
+            setEthAmountCounter(() => ethAmountCounter - 0.01)
         }
     }
     return (
@@ -29,7 +29,9 @@ const FundCreatorModal = ({ modal, toggle, args }) => {
                                     Trending
                                 </div>
                             </div>
+
                             <div className="max-w-sm text-2xl font-medium">Anush GS </div>
+
                             <input
                                 className="max-w-sm text-5xl text-center font-medium  border-none focus:outline-none"
                                 min={ethAmountCounter}
@@ -44,7 +46,9 @@ const FundCreatorModal = ({ modal, toggle, args }) => {
                             </div>
                             <div className="flex mt-3 justify-center space-y-0  space-x-4 md:flex-row md:space-x-16 md:space-y-0">
                                 <button
-                                    onClick={() => setEthAmountCounter((prev) => prev + 0.01)}
+                                    onClick={() =>
+                                        setEthAmountCounter(() => ethAmountCounter + 0.01)
+                                    }
                                     className="px-4 py-2 rounded-lg font-bold text-blue-700 text-sm bg-blue-200 hover:bg-blue-300 duration-500"
                                 >
                                     +
@@ -56,6 +60,7 @@ const FundCreatorModal = ({ modal, toggle, args }) => {
                                     -
                                 </button>
                             </div>
+
                             <div>
                                 <button className="w-full px-5 py-3 text-white font-medium bg-blue-500 rounded-xl hover:bg-blue-800 duration-500">
                                     Donate
