@@ -17,7 +17,7 @@ import {
     NavbarText,
 } from "reactstrap"
 
-const Navbar2 = ({ args }) => {
+const CustomNavbar = ({ args }) => {
     const [isOpen, setIsOpen] = useState(false)
 
     const toggle = () => setIsOpen(!isOpen)
@@ -44,31 +44,23 @@ const Navbar2 = ({ args }) => {
             </div> */}
             <div>
                 <Navbar {...args}>
-                    <NavbarBrand href="/">reactstrap</NavbarBrand>
+                    <NavbarBrand href="/">GoFund</NavbarBrand>
                     <NavbarToggler onClick={toggle} />
                     <Collapse isOpen={isOpen} navbar>
                         <Nav className="me-auto" navbar>
                             <NavItem>
-                                <NavLink href="/components/">Components</NavLink>
+                                <NavLink href="/">Home</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="https://github.com/reactstrap/reactstrap">
-                                    GitHub
-                                </NavLink>
+                                <NavLink href="/discover">Discover</NavLink>
                             </NavItem>
-                            <UncontrolledDropdown nav inNavbar>
-                                <DropdownToggle nav caret>
-                                    Options
-                                </DropdownToggle>
-                                <DropdownMenu right>
-                                    <DropdownItem>Option 1</DropdownItem>
-                                    <DropdownItem>Option 2</DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>Reset</DropdownItem>
-                                </DropdownMenu>
-                            </UncontrolledDropdown>
+                            <NavItem>
+                                <NavLink href="/dashboard">Dashboard</NavLink>
+                            </NavItem>
                         </Nav>
-                        <NavbarText>Simple Text</NavbarText>
+                        <NavbarText>
+                            <ConnectButton />
+                        </NavbarText>
                     </Collapse>
                 </Navbar>
             </div>
@@ -76,4 +68,4 @@ const Navbar2 = ({ args }) => {
     )
 }
 
-export default Navbar2
+export default CustomNavbar

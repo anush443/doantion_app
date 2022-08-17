@@ -7,7 +7,7 @@ import Navbar from "../components/Navbar"
 const Discover = () => {
     return (
         <>
-            <Navbar />
+            <Navbar args={{ color: "dark", dark: true, expand: true }} />
             <div className="flex items-center justify-center  min-h-screen bg-slate-200 ">
                 <div className="flex flex-col  space-y-3">
                     <DiscoverControls />

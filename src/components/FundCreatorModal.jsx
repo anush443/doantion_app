@@ -14,15 +14,15 @@ const FundCreatorModal = ({ modal, toggle, args }) => {
     return (
         <>
             <Modal isOpen={modal} toggle={toggle} {...args}>
-                <div className="flex flex-col p-6 m-3 justify-center space-y-10 md:flex-row md:space-y-0 md:space-x-16 md:m-0 md:p-16">
+                <div className="flex flex-col p-6 m-3   justify-center space-y-10 md:flex-row md:space-y-0 md:space-x-16 md:m-0 md:p-16">
                     <div>
                         <img
                             src={image1}
                             alt="image1"
-                            className="mx-auto w-60 hover:scale-105 duration-500"
+                            className="mt-4shadow-xl rounded-md hover:scale-105 duration-500"
                         />
                     </div>
-                    <div className="flex flex-col space-y-6  ">
+                    <div className="flex flex-col space-y-6  justify-center ">
                         <div className="flex flex-col mb-4 space-y-3 text-center md:text-left">
                             <div>
                                 <div className="inline-block text-sm px-3 py-1 rounded-full  text-white bg-black">
@@ -66,7 +66,7 @@ const FundCreatorModal = ({ modal, toggle, args }) => {
                                     Donate
                                 </button>
                             </div>
-                            <div className="flex flex-row mt-2 h-16 px-10 space-x-10">
+                            <div className="flex flex-row mt-2 pt-3 h-16 px-10 space-x-10">
                                 <SocialMediaIconsReact
                                     icon="instagram"
                                     borderStyle="none"
