@@ -1,11 +1,29 @@
-import React from "react"
 import { ConnectButton } from "web3uikit"
 import { Link } from "react-router-dom"
 
-const Navbar = () => {
+import React, { useState } from "react"
+import {
+    Collapse,
+    Navbar,
+    NavbarToggler,
+    NavbarBrand,
+    Nav,
+    NavItem,
+    NavLink,
+    UncontrolledDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem,
+    NavbarText,
+} from "reactstrap"
+
+const Navbar2 = ({ args }) => {
+    const [isOpen, setIsOpen] = useState(false)
+
+    const toggle = () => setIsOpen(!isOpen)
     return (
         <>
-            <div className="flex flex-row p-3 h-20 text-white items-center  bg-zinc-800 ">
+            {/* <div className="flex flex-row p-3 h-20 text-white items-center  bg-zinc-800 ">
                 <div className="flex flex-row ml-3">
                     <h3 className=" text-xl ">FunDmE</h3>
                 </div>
@@ -23,9 +41,39 @@ const Navbar = () => {
                 <div className=" items-center">
                     <ConnectButton />
                 </div>
+            </div> */}
+            <div>
+                <Navbar {...args}>
+                    <NavbarBrand href="/">reactstrap</NavbarBrand>
+                    <NavbarToggler onClick={toggle} />
+                    <Collapse isOpen={isOpen} navbar>
+                        <Nav className="me-auto" navbar>
+                            <NavItem>
+                                <NavLink href="/components/">Components</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink href="https://github.com/reactstrap/reactstrap">
+                                    GitHub
+                                </NavLink>
+                            </NavItem>
+                            <UncontrolledDropdown nav inNavbar>
+                                <DropdownToggle nav caret>
+                                    Options
+                                </DropdownToggle>
+                                <DropdownMenu right>
+                                    <DropdownItem>Option 1</DropdownItem>
+                                    <DropdownItem>Option 2</DropdownItem>
+                                    <DropdownItem divider />
+                                    <DropdownItem>Reset</DropdownItem>
+                                </DropdownMenu>
+                            </UncontrolledDropdown>
+                        </Nav>
+                        <NavbarText>Simple Text</NavbarText>
+                    </Collapse>
+                </Navbar>
             </div>
         </>
     )
 }
 
-export default Navbar
+export default Navbar2

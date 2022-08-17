@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar"
 const Home = () => {
     return (
         <>
-            <Navbar />
+            <Navbar args={{ color: "dark", dark: true, expand: true }} />
             <Hero />
         </>
     )

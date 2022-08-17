@@ -27,7 +27,7 @@ const DiscoverControls = () => {
                         </svg>
                     </button>
                 </div>
-                <button className="px-14 py-3  text-white rounded-md shadow-2xl border border-black bg-black duration hover:bg-white hover:text-black">
+                <button className="px-14 py-3  text-white rounded-md shadow-2xl border border-black bg-black duration hover:bg-white hover:text-black duration-200 hover:scale-105">
                     Upload
                 </button>
             </div>
