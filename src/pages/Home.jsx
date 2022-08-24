@@ -4,6 +4,9 @@ import Navbar from "../components/Navbar"
 import Hero from "../components/Home/Hero"
 import TracksSection from "../components/Home/TracksSection"
 import Features from "../components/Home/Features"
+import Access from "../components/Home/Access"
+import Supercharge from "../components/Home/Supercharge"
+import Logos from "../components/Home/Logos"
 
 const Home = () => {
     return (
@@ -13,6 +16,9 @@ const Home = () => {
                 <Hero />
                 <TracksSection />
                 <Features />
+                <Access />
+                <Supercharge />
+                <Logos />
             </div>
         </>
     )
