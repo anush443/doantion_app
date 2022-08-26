@@ -16,6 +16,7 @@ const CreateOrUpdateCreator = ({ toggle, setIsCreator }) => {
         instagram: " ",
     })
     const [trigger, setTrigger] = useState(" ")
+    const userTypeContextCtx = useContext(UserTypeContext)
     const {
         register,
         handleSubmit,
@@ -59,6 +60,7 @@ const CreateOrUpdateCreator = ({ toggle, setIsCreator }) => {
         await tx.wait(1)
 
         await handleSuccessOrErrorNotification("info", "Successfully Created Creator account")
+        userTypeContextCtx.updateContext()
     }
 
     const handleError = async (error) => {

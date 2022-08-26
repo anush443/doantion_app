@@ -3,6 +3,7 @@ import image1 from "../assests/image1.jpg"
 import bookmark from "../assests/bookmark.svg"
 import FundCreatorModal from "./FundCreatorModal"
 import { Card, Illustration } from "web3uikit"
+import craetor1 from "../assests/creator1.jpg"
 
 const CreatorCard = () => {
     const [modal, setModal] = useState(false)
@@ -28,6 +29,9 @@ const CreatorCard = () => {
                         </span>
                     }
                 >
+                    {/* <div className="bg-red-500">
+                        <img src={craetor1} alt="c" className="" />
+                    </div> */}
                     <div>
                         <Illustration height="180px" logo="lazyNft" width="100%" />
                     </div>

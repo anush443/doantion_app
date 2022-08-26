@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { Modal, ModalHeader, ModalBody, ModalFooter, Col, Row, FormGroup, Label } from "reactstrap"
 import { useForm } from "react-hook-form"
 import ChainContext from "../store/chain-Context"
+import UserTypeContext from "../store/user-type-context"
 
 import CreateOrUpdateCreator from "./CreateOrUpdateCreator"
 import { useWeb3Contract } from "react-moralis"
@@ -17,7 +18,7 @@ const CreateAccountForm = ({ modal, toggle, args, creatorBool }) => {
     } = useForm()
 
     const chainContextCtx = useContext(ChainContext)
-
+    const userTypeContextCtx = useContext(UserTypeContext)
     const {
         runContractFunction: createUser,
         isLoading,
@@ -47,6 +48,7 @@ const CreateAccountForm = ({ modal, toggle, args, creatorBool }) => {
         await tx.wait(1)
 
         await handleSuccessOrErrorNotification("info", "Successfully Created new user")
+        userTypeContextCtx.updateContext()
     }
 
     const handleError = async (error) => {
@@ -56,20 +58,18 @@ const CreateAccountForm = ({ modal, toggle, args, creatorBool }) => {
 
     const onSubmit = async (userData) => {
         setUsername(JSON.stringify(userData["name"]).toLowerCase())
+        createUserCall()
     }
 
-    useEffect(() => {
-        const createUserCall = async () => {
-            if (chainContextCtx.isWeb3Enabled && userName.length > 1) {
-                await createUser({
-                    onSuccess: handleSuccess,
-                    onError: (error) => handleError(error),
-                })
-                toggle()
-            }
+    const createUserCall = async () => {
+        if (chainContextCtx.isWeb3Enabled && userName.length > 1) {
+            await createUser({
+                onSuccess: handleSuccess,
+                onError: (error) => handleError(error),
+            })
+            toggle()
         }
-        createUserCall()
-    }, [userName])
+    }
 
     const setIsCreator = () => {
         setCreator((prevState) => !prevState)

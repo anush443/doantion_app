@@ -8,7 +8,7 @@ const FundCreatorModal = ({ modal, toggle, args }) => {
 
     const minus = () => {
         if (ethAmountCounter > 0.01) {
-            setEthAmountCounter(() => ethAmountCounter - 0.01)
+            setEthAmountCounter((prev) => prev - 0.01)
         }
     }
     return (
@@ -46,9 +46,7 @@ const FundCreatorModal = ({ modal, toggle, args }) => {
                             </div>
                             <div className="flex mt-3 justify-center space-y-0  space-x-4 md:flex-row md:space-x-16 md:space-y-0">
                                 <button
-                                    onClick={() =>
-                                        setEthAmountCounter(() => ethAmountCounter + 0.01)
-                                    }
+                                    onClick={() => setEthAmountCounter((prev) => prev + 0.01)}
                                     className="px-4 py-2 rounded-lg font-bold text-blue-700 text-sm bg-blue-200 hover:bg-blue-300 duration-500"
                                 >
                                     +

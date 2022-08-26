@@ -6,12 +6,14 @@ const UserTypeContext = React.createContext({
     address: "",
     hasAccount: false,
     userIsCreator: false,
+    updateContext: () => {},
 })
 
 export const UserTypeContextProvider = (props) => {
     const [hasAccount, setHasAccount] = useState(false)
 
     const [userIsCreator, setUserIsCreator] = useState(false)
+    const [updateContextFlag, setUpdateContextFlag] = useState(false)
 
     const { account, isWeb3Enabled } = useMoralis()
     // isWeb3Enabled && setAddress(account)
@@ -46,16 +48,22 @@ export const UserTypeContextProvider = (props) => {
         }
     }
 
+    const updateContextHandler = async () => {
+        await getUserContext()
+        setUpdateContextFlag(true)
+    }
+
     useEffect(() => {
-        if (isWeb3Enabled) {
+        if (isWeb3Enabled || (isWeb3Enabled && updateContextFlag)) {
             getUserContext()
         }
-    }, [isWeb3Enabled, account])
+    }, [isWeb3Enabled, account, updateContextFlag])
 
     const contextValue = {
         address: account,
         hasAccount: hasAccount,
         userIsCreator: userIsCreator,
+        updateContext: updateContextHandler,
     }
 
     return (
